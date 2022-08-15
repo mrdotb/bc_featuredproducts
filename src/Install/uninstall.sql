@@ -1,0 +1,1 @@
+ALTER TABLE _DB_PREFIX_product DROP COLUMN `featured`;
