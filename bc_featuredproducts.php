@@ -11,6 +11,7 @@ if (!defined('_PS_VERSION_')) {
 require_once __DIR__.'/vendor/autoload.php';
 
 use Bc_Featuredproducts\Install\Installer;
+use Bc_Featuredproducts\Product\ProductFeaturedSearchProvider;
 
 use PrestaShop\PrestaShop\Adapter\Category\CategoryProductSearchProvider;
 use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
@@ -26,7 +27,7 @@ class Bc_FeaturedProducts extends Module implements WidgetInterface
     public function __construct()
     {
         $this->name = 'bc_featuredproducts';
-        $this->author = 'mrdotn';
+        $this->author = 'mrdotb';
         $this->version = '1.0.0';
         $this->need_instance = 0;
 
@@ -62,6 +63,7 @@ class Bc_FeaturedProducts extends Module implements WidgetInterface
             && $this->registerHook('displayCrossSellingShoppingCart')
             && $this->registerHook('actionCategoryUpdate')
             && $this->registerHook('actionAdminGroupsControllerSaveAfter')
+            && $this->registerHook('displayAdminProductsMainStepRightColumnBottom')
         ;
     }
 
@@ -96,6 +98,19 @@ class Bc_FeaturedProducts extends Module implements WidgetInterface
     public function hookActionAdminGroupsControllerSaveAfter($params)
     {
         $this->_clearCache('*');
+    }
+
+    public function hookDisplayAdminProductsMainStepRightColumnBottom($params)
+    {
+        $product = new Product($params['id_product']);
+        $this->context->smarty->assign([
+            'featured' => $product->featured
+        ]);
+
+        return $this->display(
+            __FILE__,
+            '/views/templates/hook/bc_featured_field.tpl'
+        );
     }
 
     public function _clearCache($template, $cache_id = null, $compile_id = null)
@@ -218,7 +233,7 @@ class Bc_FeaturedProducts extends Module implements WidgetInterface
         if (!empty($products)) {
             return [
                 'products' => $products,
-                'allProductsLink' => Context::getContext()->link->getCategoryLink($this->getConfigFieldsValues()['HOME_FEATURED_CAT']),
+                'allProductsLink' => Context::getContext()->link->getCategoryLink($this->getConfigFieldsValues()['BC_HOME_FEATURED_CAT']),
             ];
         }
 
@@ -229,9 +244,8 @@ class Bc_FeaturedProducts extends Module implements WidgetInterface
     {
         $category = new Category((int) Configuration::get('BC_HOME_FEATURED_CAT'));
 
-        $searchProvider = new CategoryProductSearchProvider(
-            $this->context->getTranslator(),
-            $category
+        $searchProvider = new ProductFeaturedSearchProvider(
+            $this->context->getTranslator()
         );
 
         $context = new ProductSearchContext($this->context);
