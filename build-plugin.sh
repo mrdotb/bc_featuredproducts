@@ -2,4 +2,7 @@
 set -x
 composer install
 composer dump-autoload
-zip -r bc_featuredproducts.zip override vendor bc_featuredproducts.php composer.lock index.php src translations views composer.json config.xml
+mkdir bc_featuredproducts
+cp -r override src tools translations vendor views bc_featuredproducts.php composer.json composer.lock config.xml index.php -t bc_featuredproducts
+zip -r bc_featuredproducts.zip bc_featuredproducts
+rm -rf bc_featuredproducts

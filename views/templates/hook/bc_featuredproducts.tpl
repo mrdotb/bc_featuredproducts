@@ -4,7 +4,7 @@
  *}
 <section class="featured-products clearfix">
   <h2 class="h2 products-section-title text-uppercase">
-    {l s='Our Best Sellers' d='Modules.BcFeaturedproducts.Shop'}
+    {l s='Our Best Sellers' d='Modules.BcFeaturedProducts.BcFeaturedProducts'}
   </h2>
   {include file="catalog/_partials/productlist.tpl" products=$products cssClass="row" productClass="col-xs-6 col-lg-4 col-xl-3"}
   <a class="all-product-link float-xs-left float-md-right h4" href="{$allProductsLink}">
