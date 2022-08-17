@@ -67,7 +67,6 @@ class Installer
     private function uninstallDb(Module $module): void
     {
         $this->executeSqlFromFile($module->getLocalPath() . 'src/Install/uninstall.sql');
-
     }
 
     /**

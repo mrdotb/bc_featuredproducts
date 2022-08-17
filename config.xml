@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
     <name>bc_featuredproducts</name>
-    <displayName><![CDATA[Featured product]]></displayName>
+    <displayName><![CDATA[BC Featured product]]></displayName>
     <version><![CDATA[1.0.0]]></version>
     <description><![CDATA[Displays featured products in the central column of your homepage.]]></description>
     <author><![CDATA[mrdotb]]></author>

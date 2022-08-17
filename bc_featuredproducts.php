@@ -19,7 +19,6 @@ use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchContext;
 use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchQuery;
 use PrestaShop\PrestaShop\Core\Product\Search\SortOrder;
 
-
 class Bc_FeaturedProducts extends Module implements WidgetInterface
 {
     private $templateFile;
